@@ -1,9 +1,9 @@
 import React from 'react';
 
-function JokeBtn() {
+function JokeBtn(props) {
     return (
         < nav >
-            <button> Dad Jokes </button>
+            <button onClick={props.getJoke}> Dad Jokes </button>
         </nav >
     )
 }
