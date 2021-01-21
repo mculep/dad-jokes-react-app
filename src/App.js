@@ -1,23 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './Header';
+import JokeBtn from './JokeBtn';
+import JokeHolder from './JokeHolder';
+import { useState, useEffect } from 'react'
 
 function App() {
+
+  useEffect(() => {
+    async function getJoke() {
+      // fetch the joke
+      const jokePromise = fetch('https://icanhazdadjoke.com', {
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+      const response = await jokePromise;
+      const jokeData = await response.json();
+      console.log(jokeData.joke);
+      // setJoke(jokeData.joke);
+    }
+    getJoke();
+  });
+
+  const [joke, setJoke] = useState("knock knock");
+  console.log(`This is the joke:`, joke);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <JokeBtn />
+      <JokeHolder joke={joke} />
     </div>
   );
 }
